@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <record model="ir.ui.view"  id="tree_usuario">
+        <field name="name">Usuarios</field>
+        <field name="model">usermanagement.usuario</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="estado == 'desactivado'" editable="top">
+                <field name="nombre" />
+                <field name="apellidos"/>
+                <field name="nombre_usuario"/>
+                <field name="correo"/>
+                <field name="cuota"/>
+                <field name="estado"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="form_usuario">
+        <field name="name">Nuevo Usuario</field>
+        <field name="model">usermanagement.usuario</field>
+        <field name="arch" type="xml">
+            <form edit="false">
+                <header>
+                    <field name="edit" invisible="1"/>
+                    <button string="Cambiar Contraseña" help="Cambiar contraseña de usuario." type="action"
+                            name="%(action_pass_wizard)d" attrs="{'invisible':[('edit', '!=', True)]}"
+                    />
+
+                </header>
+                <sheet>
+                    <div class="oe_inline">
+                        <newline/>
+                        <separator string="Información Personal"/>
+                        <field name="foto" widget="image" class="oe_avatar oe_left" attrs="{ 'readonly':True }"
+                               style="max-width:100px;max-height:117px;"/>
+                        <div class="oe_title">
+                            <group>
+                                <group name="group_left">
+                                    <field name="carnet_identidad"
+                                           attrs="{'invisible':[('extranjero', '!=', False)], 'required':[('extranjero', '==', False)], 'readonly': True}"/>
+                                    <field name="pasaporte"
+                                           attrs="{'invisible':[('extranjero', '!=', True)], 'required':[('extranjero', '==', True)], 'readonly': True}"/>
+                                    <field name="nombre" attrs="{ 'readonly':True }"/>
+                                    <!--<br/>-->
+                                    <field name="apellidos" attrs="{ 'readonly':True }"/>
+                                    <!--<br/>-->
+                                </group>
+                                <group name="group_right">
+                                    <field name="extranjero" attrs="{ 'readonly':True }"/>
+                                    <field name="direccion" attrs="{ 'readonly':True }"/>
+                                    <field name="telefono" attrs="{ 'readonly':True }"/>
+                                </group>
+                            </group>
+                        </div>
+                    </div>
+
+                    <notebook>
+                        <page string="Información de Usuario" name="infouser">
+                            <group>
+                                <group name="group_left">
+                                    <field name="nombre_usuario" attrs="{ 'readonly':True }"/>
+                                    <field name="contrasena" attrs="{'readonly':[('edit', '!=', False)]}" password="True"/>
+                                    <field name="confirmar_contrasena" string="Re-Contraseña"
+                                           attrs="{'required':[('edit', '!=', True)], 'invisible':[('edit', '==', True)]}" password="True"/>
+                                    <field name="correo" attrs="{ 'readonly':True }"/>
+                                </group>
+                                <group name="group_right">
+                                    <field name="estado" string="Estado" attrs="{ 'readonly':True }"/>
+                                    <field name="tiempo_expiracion" string="Expiración" attrs="{ 'readonly':True }"/>
+                                    <field name="dominio_id" string="Dominio" widget="selection"
+                                           attrs="{ 'readonly':True }"/>
+                                    <field name="cuota" string="Cuota (MB)" attrs="{ 'readonly':True }"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Grupos">
+                            <field name="grupo_ids" string="Grupos" attrs="{ 'readonly':True }"/>
+                        </page>
+                        <page string="Servicios">
+                            <field name="servicio_ids" string="Servicios"/>
+                        </page>
+                        <page string="LOGS">
+                            <field name="log_ids" string="LOG" attrs="{ 'readonly':True }"/>
+                        </page>
+                        <page string="Observación">
+                            <field name="observacion" attrs="{ 'readonly':True }"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="form_usuario_editable_admin" model="ir.ui.view">
+        <field name="name">Nuevo Usuario editable</field>
+        <field name="model">usermanagement.usuario</field>
+        <field name="inherit_id" ref="form_usuario"/>
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_system'), ref('group_user_attention')])]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='nombre']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='apellidos']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='nombre_usuario']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='cuota']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='direccion']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='telefono']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='carnet_identidad']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='pasaporte']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='extranjero']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='correo']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='foto']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='estado']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='tiempo_expiracion']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='grupo_ids']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='dominio_id']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='observacion']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="/form" position="attributes">
+                <attribute name="edit">true</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="form_usuario_editable_admin_area" model="ir.ui.view">
+        <field name="name">Nuevo Usuario editable</field>
+        <field name="model">usermanagement.usuario</field>
+        <field name="inherit_id" ref="form_usuario"/>
+        <field name="groups_id" eval="[(6, 0, [ref('group_admin_area')])]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='estado']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='observacion']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+
+            <xpath expr="/form" position="attributes">
+                <attribute name="edit">true</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="kanban_usuario" model="ir.ui.view">
+        <field name="name">usermanagement.usuario.kanban</field>
+        <field name="model">usermanagement.usuario</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+
+            <kanban class="o_hr_employee_kanban">
+
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('usermanagement.usuario', 'foto', record.id.value)"/>
+
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong>
+                                    <field name="nombre"/>
+                                </strong>
+                                <ul>
+                                    <li id="last_login"/>
+                                    <li t-if="record.nombre_usuario.raw_value">
+                                        <field name="nombre_usuario"/>
+                                    </li>
+
+                                    <li t-if="record.correo.raw_value">
+                                        <i class="fa fa-envelope"></i>
+                                        <field name="correo"/>
+                                    </li>
+                                    <li t-if="record.telefono.raw_value">
+                                        <i class="fa fa-phone"></i>
+                                        <field name="telefono"/>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+
+        </field>
+    </record>
+
+</odoo>

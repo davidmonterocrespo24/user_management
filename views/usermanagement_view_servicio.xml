@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+
+
+<odoo>
+    <record model="ir.ui.view" id="tree_servicio">
+        <field name="name">Servicios</field>
+        <field name="model">usermanagement.servicio</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nombre" string="Nombre"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="form_servicio">
+        <field name="name">Servicios</field>
+        <field name="model">usermanagement.servicio</field>
+        <field name="arch" type="xml">
+            <form>
+                <header></header>
+                <sheet>
+                    <group name="group_top">
+                        <group name="group_left">
+                            <newline/>
+                            <field name="nombre" string="Nombre"/>
+                            <!--<field name="cant_users" string="Cantidad de Usuarios"/>-->
+                            <field name="descripcion" string="Descripción"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Usuarios">
+                            <field name="usuarios_ids" string="Usuarios" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="UserManagement Servicio Kanban" model="ir.ui.view">
+        <field name="name">usermanagement.servicio.kanban</field>
+        <field name="model">usermanagement.servicio</field>
+        <field name="arch" type="xml">
+                <kanban class="o_res_partner_kanban">
+                        <field name="nombre"/>
+                        <field name="cant_users"/>
+                        <templates>
+                            <t t-name="kanban-box">
+                                <div t-attf-class="#{kanban_color(record.nombre.raw_value)}
+                                oe_kanban_global_click">
+                                    <div class="oe_kanban_global_click">
+                                        <div class="o_kanban_tags_section"/>
+                                        <div class="o_kanban_image">
+                                            <img t-att-src="_s + &quot;/user_management/static/group.png&quot;"/>
+                                        </div>
+                                        <div class="oe_kanban_details">
+                                            <strong class="oe_partner_heading"><field name="nombre"/></strong>
+                                            <ul>
+                                                <li>Usuarios: <field name="cant_users"/></li>
+                                                </ul>
+                                            <div class="oe_kanban_partner_links"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </templates>
+                    </kanban>
+        </field>
+    </record>
+</odoo>

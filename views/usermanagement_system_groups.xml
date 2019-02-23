@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <act_window id="action_system_groups_wizard"
+        name="Grupos del Sistema"
+        res_model="usermanagement.systemgroupwizard"
+        view_mode="form"
+        target="new"
+        />
+
+    <record id="usermanagement_systemgroup_wizard" model="ir.ui.view">
+        <field name="name">Usuarios del Sistema</field>
+        <field name="model">usermanagement.systemgroupwizard</field>
+        <field name="arch" type="xml">
+            <form string="Usuarios del Sistema">
+                <group name="group_left">
+                    <field name="users" options="{'no_open': True}" string="Usuarios" widget="many2many_tags"/>
+                    <field name="groups" options="{'no_open': True}" string="Grupos" widget="many2many_tags"/>
+                </group>
+                <group name="group_right">
+                    <field name="system_groups" options="{'no_open': True}" string="Grupos del Sistema" widget="many2many_tags"/>
+                </group>
+                <footer>
+                    <button string="Añadir" name="do_add_users_groups_button" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

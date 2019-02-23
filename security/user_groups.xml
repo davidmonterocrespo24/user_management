@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="user_management_privilege" model="ir.module.category">
+            <field name="name">Gestor de Usuarios</field>
+            <field name="sequence">3</field>
+        </record>
+        <record id="group_admin_area" model="res.groups">
+            <field name="name">Administrador de Área</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <!--field name="implied_ids" eval="[(4,ref('base.group_user'))]"/>-->
+            <field name="category_id" ref="user_management.user_management_privilege"/>
+        </record>
+        <record id="group_user_attention" model="res.groups">
+            <field name="name">Atención a Usuarios</field>
+            <!--field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="implied_ids" eval="[(4,ref('base.group_user'))]"/-->
+            <field name="category_id" ref="user_management.user_management_privilege"/>
+        </record>
+
+        <!--record model="ir.rule" id="admin_area_users">
+            <field name="name">Usuarios de mi área</field>
+            <field name="model_id" ref='model_usermanagement_usuario'/>
+            <field name="groups" eval="[(4, ref('group_admin_area'))]"/>
+            <field name="domain_force">[('area_id.nombre', '=', user.area)]</field>
+        </record-->
+
+        <record model="ir.rule" id="user_attention_users">
+            <field name="name">Usuarios todos</field>
+            <field name="model_id" ref='model_usermanagement_usuario'/>
+            <field name="groups" eval="[(4, ref('group_user_attention'))]"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+        </record>
+		<!--record model="ir.rule" id="user_own_info">
+            <field name="name">Usuario</field>
+            <field name="model_id" ref='model_usermanagement_usuario'/>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="domain_force">[('nombre_usuario', '=', user.login)]</field>
+        </record-->
+    </data>
+</odoo>

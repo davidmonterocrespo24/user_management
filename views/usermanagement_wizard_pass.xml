@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <act_window id="action_pass_wizard"
+        name="Cambiar Contraseña"
+        src_model="usermanagement.usuario"
+        res_model="usermanagement.passwizard"
+        view_type="form"
+        view_mode="form"
+        target="new"
+        groups="group_admin_area,group_user_attention"
+        />
+
+    <record id="usermanagement_pass_wizard" model="ir.ui.view">
+        <field name="name">Cambiar Contraseña</field>
+        <field name="model">usermanagement.passwizard</field>
+        <field name="arch" type="xml">
+            <form string="Cambiar Contraseña">
+                <field name="users"/>
+                <footer>
+                    <button string="Cambiar Contraseña" name="do_change_pass_button" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="change_password_wizard_user_tree_view" model="ir.ui.view">
+        <field name="name">Cambiar Contraseña de Usuario</field>
+        <field name="model">usermanagement.changepassuser</field>
+        <field name="arch" type="xml">
+            <!-- the user list is editable, but one cannot add or delete rows -->
+            <tree string="Usuario" editable="bottom" create="false" delete="false">
+                <field name="user" readonly="True" options="{'no_open': True}"/>
+                <!--<field name="old_pass" required="True" password="True"/>-->
+                <field name="new_pass" required="True" password="True"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--<record id="usermanagement.action_pass_wizard" model="ir.actions.act_window">
+        <field name="name">UserManagement Pass Wizard</field>
+        <field name="res_model">usermanagement.passwizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>-->
+
+</odoo>

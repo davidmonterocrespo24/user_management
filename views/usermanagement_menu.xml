@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record model="ir.actions.act_window" id="side_bar">
+        <field name="name">Usuarios</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">usermanagement.usuario</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Crear nuevo grupo.
+            </p>
+        </field>
+    </record>
+
+    <!--Actions-->
+    <!--Usuarios-->
+    <record id="action_usuarios" model="ir.actions.act_window">
+        <field name="name">Usuarios</field>
+        <field name="res_model">usermanagement.usuario</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Crear nuevo usuario.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_grupos" model="ir.actions.act_window">
+        <field name="name">Grupos</field>
+        <field name="res_model">usermanagement.grupo</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="views">[["tree_grupo", "tree"], ["form_grupo", "form"]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Crear nuevo grupo.
+            </p>
+        </field>
+    </record>
+    <!--Otros-->
+    <record id="action_servicios" model="ir.actions.act_window">
+        <field name="name">Servicios</field>
+        <field name="res_model">usermanagement.servicio</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="views">[["tree_servicio", "tree"], ["form_servicio", "form"]]</field>
+    </record>
+
+    <record id="action_dominios" model="ir.actions.act_window">
+        <field name="name">Dominios</field>
+        <field name="res_model">usermanagement.dominio</field>
+        <field name="view_mode">tree,form</field>
+        <field name="views">[["tree_dominio", "tree"], ["form_dominio", "form"]]</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_log_tree">
+        <field name="name">Logs</field>
+        <field name="res_model">auditlog.log</field>
+        <field name="view_type">form</field>
+    </record>
+
+
+    <!--Menu-->
+    <!--General-->
+    <menuitem id="menu_usermanagement"
+        name="Gestor de Usuarios"
+        action="action_usuarios"
+        />
+
+    <!--Opciones de usuarios-->
+    <menuitem id="menu_general_usuario"
+        name="Gestión de Usuarios"
+        parent="menu_usermanagement"
+        groups="base.group_system,group_admin_area,group_user_attention"/>
+    <menuitem id="menu_usuario"
+        name="Usuarios"
+        parent="menu_general_usuario"
+        action="action_usuarios"/>
+    <menuitem id="menu_grupo"
+        name="Grupos"
+        parent="menu_general_usuario"
+        action="action_grupos"/>
+
+
+    <!--Configuracion-->
+    <menuitem id="menu_general_config"
+        name="Configuración"
+        parent="menu_usermanagement"
+        groups="base.group_system"/>
+    <menuitem id="menu_servicios"
+        name="Servicios"
+        parent="menu_general_config"
+        action="action_servicios"/>
+    <menuitem id="menu_dominios"
+        name="Dominios"
+        parent="menu_general_config"
+        action="action_dominios"/>
+    <menuitem id="menu_system_groups" name="Usuarios del Sistema"
+        parent="menu_general_config" action="action_system_groups_wizard"/>
+
+
+    <!--Avanzado-->
+    <menuitem id="menu_general_avanzado"
+        name="Avanzado"
+        parent="menu_usermanagement"
+        groups="base.group_system"/>
+
+    <menuitem id="menu_logs" name="Logs"
+        parent="menu_general_avanzado" action="action_log_tree"/>
+
+
+
+</odoo>

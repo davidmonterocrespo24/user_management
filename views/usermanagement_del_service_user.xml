@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <act_window id="action_del_service_user_wizard"
+        name="Eliminar Servicio a Usuario"
+        res_model="usermanagement.delserviceuserwizard"
+        view_mode="form"
+        target="new"
+        />
+
+    <record id="usermanagement_del_service_user_wizard" model="ir.ui.view">
+        <field name="name">usermanagement_del_service_user_wizard</field>
+        <field name="model">usermanagement.delserviceuserwizard</field>
+        <field name="arch" type="xml">
+            <form string="Eliminar Servicio a Usuario">
+                <group name="group_left">
+                    <field name="users" options="{'no_open': True}" string="Usuarios" widget="many2many_tags"/>
+                </group>
+                <group name="group_right">
+                    <field name="services" options="{'no_open': True}" string="Servicios" widget="many2many_tags"/>
+                </group>
+                <group name="group_botton">
+                    <field name="notes" options="{'no_open': True}" string="Notas"/>
+                </group>
+                <footer>
+                    <button string="Aceptar" name="do_del_service_user_button" type="object" class="btn-primary"/>
+                    <button string="Restablecer Servicios" name="do_restore_service_user_button" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>
